@@ -11,7 +11,7 @@ const { getCompliment, getFortune, getGoals, addGoal, deleteGoal } = require('./
 
 app.get("/api/compliment", getCompliment);
 
-app.get("/api/compliment", getFortune);
+app.get("/api/fortune", getFortune);
 
 //goallist
 app.get("/api/goals",getGoals)

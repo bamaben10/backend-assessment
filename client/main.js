@@ -16,11 +16,13 @@ const getCompliment = () => {
             alert(data);
     });
 };
+let number = 0
 
 const getFortune = () => {
-    axios.get(`${BaseURL}/api/compliment`)
+    axios.get(`${BaseURL}/api/fortune`)
         .then(res => {
-            alert(res.data)
+            console.log((res.data))
+            console.log(number)
         })
         .catch(err => console.log(err))
 }
