@@ -1,3 +1,16 @@
+let goals = [
+    {
+        goalId:1,
+        goal:'Finish coding assessment'
+    },
+    {
+        goalId:2,
+        goal:"score 30 points in a basketball game"
+    },
+];
+
+let globalId = 3
+
 module.exports = {
 
     getCompliment: (req, res) => {
@@ -9,40 +22,32 @@ module.exports = {
       
         res.status(200).send(randomCompliment);
     },
+    getFortune: (req,res) => {
+        const fortunes = ["Your success will astonish everyone.", "The harder you work, the luckier you get.", "It takes courage to admit fault.", "All your hard work will soon pay off."];
 
-
-    getFortune: (req, res) => {
-        const fortunes = ["You can keep a secret.", "Your success will astonish everyone.", "The harder you work, the luckier you get.", "It takes courage to admit fault.", "All your hard work will soon pay off."];
-
-        // choose random compliment
-        let randomIndex = Math.floor(Math.random() * fortunes.length);
+        let randomIndex = Math.floor(Math.random() * fortunes.length)
         let randomFortune = fortunes[randomIndex];
-
-        res.status(200).send(randomFortune);
+        res.status(200).send(randomFortune)
     },
 
-    getInspiration: (req, res) => {
-        const inspirations = ["You can do it!", "You are the best at what you do.", "Don't give up!"];
-
-        let randomIndex = Math.floor(Math.random() * inspirations.length);
-        let randomInspiration = inspirations[randomIndex];
-
-        res.status(200).send(randomInspiration);
+    getGoals:(req,res) => {
+        res.status(200).send(goals)
     },
-
-    getGoal : (req,res) => {
-        const goals = ["Graduate from DevMountain with understanding of everthing taught.", "Get a job as a web developer.", "Become a valuable coder."];
-
-        let randomIndex = Math.floor(Math.random() * goals.length);
-        let randomGoals = goals[randomIndex];
-
-        res.status(200).send(randomInspiration);
+    addGoal: (req,res) => {
+        let { goal } = req.body
+        let newGoal = {
+            goalId:globalId,
+            goal
+        }
+        goals.push(newGoal)
+        globalId++
+        res.status(200).send(goals)
     },
-
-    getHowToAchieveMyGoals : (req,res) => {
-        const howToAchieveGoals = ["Study after class everyday.", "Study on the weekends.", "Ask mentors/instructors for help."]
-
-        let randomIndex = Math.floor(Math.random() * howToAchieveGoals.length);
-        let randomhowToAchieveGoals = howToAchieveGoal[randomIndex];
-    } 
-}
+    deleteGoal: (req,res) => {
+        const { id } = req.params
+        //find which goal has the goalId === id and splice it from the array
+        const index = goals.findIndex(goal => goal.goalId === +id)
+        goals.splice(index,1)
+        res.status(200).send(goals)
+    }
+};
